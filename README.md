@@ -1,12 +1,7 @@
-<style>
-    details > summary {
-        font-size: 1.5em;
-    }
-</style>
 # LINQPad & LINQ Demo
 
 <details open='open'>
-<summary><span>Pre-requisites/Requirements</span></summary>
+<summary style='font-size: 1.5em'><span>Pre-requisites/Requirements</span></summary>
 Hardware (recommended): 
 - CPU: Intel Core i5 (5th Generation or Later)
 - RAM: 8 GB (32-bit)/16+ GB (AnyCPU)
@@ -29,8 +24,8 @@ Build: 32-bit vs. AnyCPU build - AnyCPU build is recommended for Windows 64-bit 
 <p/>
 </details>
 <hr />
-<details>
-<summary  open='open'>Next</summary>
+<details  open='open'>
+<summary style='font-size: 1.5em'>Next</summary>
 
 <p/>
 </details>
