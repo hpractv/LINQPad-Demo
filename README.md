@@ -1,7 +1,12 @@
-# LINQPad-Demo
+<style>
+    .heading {
+        font-size: 1.5em;
+    }
+</style>
+# LINQPad & LINQ Demo
 
-## Pre-requisites/Requirements
 <details>
+<summary><span class='heading'>Pre-requisites/Requirements</span></summary>
 Hardware (recommended): 
 - CPU: Intel Core i5 (5th Generation or Later)
 - RAM: 8 GB (32-bit)/16+ GB (AnyCPU)
