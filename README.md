@@ -1,12 +1,12 @@
 <style>
-    .heading {
+    details > summary {
         font-size: 1.5em;
     }
 </style>
 # LINQPad & LINQ Demo
 
-<details>
-<summary><span class='heading'>Pre-requisites/Requirements</span></summary>
+<details open='open'>
+<summary><span>Pre-requisites/Requirements</span></summary>
 Hardware (recommended): 
 - CPU: Intel Core i5 (5th Generation or Later)
 - RAM: 8 GB (32-bit)/16+ GB (AnyCPU)
@@ -26,4 +26,13 @@ Build: 32-bit vs. AnyCPU build - AnyCPU build is recommended for Windows 64-bit 
 - Trial - 14 Days
 - Free - Reduced feature set, but free to use in perpetuity
 - Premium - $89 (Recommended for continued use beyond the trial period)
+<p/>
 </details>
+<hr />
+<details>
+<summary  open='open'>Next</summary>
+
+<p/>
+</details>
+<hr />
+
