@@ -39,7 +39,10 @@ void Main()
 	((double)zooMostlyTails.Count(z => z.tail) / (double)zooMostlyTails.Count()).ToString("0.00%").Dump("Zoo Tail Count");
 
 
-	var zooFishAndMonkies = Compiled_Library_Demo.Program.createZoo(zooAnimalCount/2, this.thirtyThreeSixtySix, zooAnimalCount/2, this.fiftyFifty);
+	var zooFishAndMonkies = Compiled_Library_Demo.Program.createZoo(
+		rand.Next(0, zooAnimalCount), this.thirtyThreeSixtySix,
+		rand.Next(0, zooAnimalCount), this.fiftyFifty);
+		
 	zooFishAndMonkies
 		.OnDemand("Expand")
 		.Dump("Zoo Fish & Monkiess");
@@ -49,7 +52,8 @@ void Main()
 		.Select(z => new
 		{
 			type = z.Key,
-			tailPercentage = ((double)z.Count(x => x.tail) / (double)z.Count()).ToString("0.00%")
+			tailPercentage = ((double)z.Count(x => x.tail) / (double)z.Count()).ToString("0.00%"),
+			count = z.Count()
 		})
 		.Dump("Animal Tail Count");
 	
@@ -65,4 +69,3 @@ public bool thirtyThreeSixtySix()
 		
 	return hasTail;
 }
-
