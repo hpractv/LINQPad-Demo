@@ -12,20 +12,20 @@ void Main()
 	var reader = new StreamReader(verdictFile);
 	var verdictsCsv = new CsvReader(reader);
 	var verdicts = verdictsCsv
-		.GetRecords<verdict>()
-		.ToArray(); //try leaving this off
+		.GetRecords<verdict>();
+		//.ToArray(); //try leaving this off
 
 	verdicts
 		//.Where(v => v.Penalty == "Death")
 		//.Where(v => v.Defendant == "White")
-		.GroupBy(v => new { v.Penalty, v.Defendant, v.Victim })
-		.Select(v => new
-		{
-			Races = v.Key,
-			Percentage = ((double)v.Count() / verdicts.Count()).ToString("###.0%"),
-			//raw = ((double)v.Count() / verdicts.Count())
-		})
-		.OrderByDescending(v => v.Percentage)
+		//.GroupBy(v => new { v.Penalty, v.Defendant, v.Victim })
+		//.Select(v => new
+		//{
+		//	Races = v.Key,
+		//	Percentage = ((double)v.Count() / verdicts.Count()).ToString("###.0%"),
+		//	//raw = ((double)v.Count() / verdicts.Count())
+		//})
+		//.OrderByDescending(v => v.Percentage)
 		.Dump();
 }
 

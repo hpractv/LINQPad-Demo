@@ -24,7 +24,7 @@
 </details>
 <hr />
 <details  open='open'>
-<summary style='font-size: 1.5em;'>Topics</summary>
+<summary style='font-size: 1.5em;'>Topics/Agenda</summary>
     <div>
         <strong>Overview</strong>
         <ol>
@@ -39,9 +39,24 @@
                     <li>Languages Supported</li>
                     <li>Data Bases Supported</li>
                     <li>Nuget Libraries</li>
-                    <li>Executable and Entity FrameWork </li>
+                    <li>Executable and Entity FrameWork</li>
                 </ol>
-            </li>        
+            </li>
+            <li>Demos</li>
+                <ol type='a'>
+                    <li>DataBase Query</li>
+                        <ol type='a'>
+                            <li>SQL</li>
+                            <li>Embedded SQL</li>
+                            <li>Entity Framework</li>
+                            <li>Linq-To-SQL </li>
+                        </ol>
+                    <li>Compiled Library</li>
+                    <li>Nuget Libraries</li>
+                    <li>LINQ Statements</li>
+                    <li>Debugging</li>
+                    <li>**NEED TO ADD** Postman</li>
+                </ol>
         </ol>
         <strong>IDE Elements</strong>
     </div>
