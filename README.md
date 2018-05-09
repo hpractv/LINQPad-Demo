@@ -2,7 +2,7 @@
 
 <details open='open'>
     <summary style='font-size: 1.5em;'>Pre-requisites/Requirements</summary>
-    <div>
+    <div>1
         Hardware (recommended):
         <ul>
             <li>CPU: Intel Core i5 (5th Generation or Later)</li>
