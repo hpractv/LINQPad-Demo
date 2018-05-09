@@ -11,7 +11,6 @@
   <Reference Relative="..\authentication-microservice\src\ES.Auth.WpfSample\bin\Debug\System.IdentityModel.Tokens.Jwt.dll">C:\github\authentication-microservice\src\ES.Auth.WpfSample\bin\Debug\System.IdentityModel.Tokens.Jwt.dll</Reference>
   <Reference Relative="..\authentication-microservice\src\ES.Auth.WpfSample\bin\Debug\System.Security.Claims.dll">C:\github\authentication-microservice\src\ES.Auth.WpfSample\bin\Debug\System.Security.Claims.dll</Reference>
   <GACReference>System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</GACReference>
-  <NuGetReference>Newtonsoft.Json</NuGetReference>
   <NuGetReference>RestSharp</NuGetReference>
   <Namespace>analyticsLibrary.dbObjects</Namespace>
   <Namespace>analyticsLibrary.library</Namespace>
@@ -19,13 +18,10 @@
   <Namespace>ES.Auth.WpfSample</Namespace>
   <Namespace>IdentityModel.Client</Namespace>
   <Namespace>IdentityModel.OidcClient</Namespace>
-  <Namespace>IdentityModel.OidcClient.Browser</Namespace>
-  <Namespace>Newtonsoft.Json</Namespace>
-  <Namespace>Newtonsoft.Json.Converters</Namespace>
   <Namespace>RestSharp</Namespace>
   <Namespace>System.Collections.ObjectModel</Namespace>
   <Namespace>System.Net.Http</Namespace>
-  <Namespace>System.Globalization</Namespace>
+  <Namespace>IdentityModel.OidcClient.Browser</Namespace>
 </Query>
 
 void Main()
@@ -74,7 +70,6 @@ void Main()
 			addressid = r["addressId"].intOrNull(),
 		});
 
-
 	var requests = new List<(int personId, string request)>();
 
 	forms
@@ -83,17 +78,14 @@ void Main()
 		{
 			var documents = f
 			.GroupBy(fd => new { fd.hraaccountid, fd.hraformfilerecordid, fd.documentformcode, fd.documenttypeid })
-			.Select(fd => new FormsToMail()
-			{
-				HraAccountId = fd.Key.hraaccountid,
-				DocumentTypeId = fd.Key.documenttypeid.Value,
-				DocumentFormCode = fd.Key.documentformcode.Value,
-				MailingAddressId = fd.First().addressid.Value
-			}).ToArray();
+			.Select(fd => string.Format(formRequest,
+				fd.Key.hraaccountid,
+				fd.Key.documenttypeid,
+				fd.Key.documentformcode,
+				fd.First().addressid))
+			.stringJoin(",\r\n");
 
-			var request = new Request() { FormsToMail = documents };
-			
-			requests.Add((personId: f.First().accountholderpersonid.Value, request: request.ToJson()));
+			requests.Add((personId: f.First().accountholderpersonid.Value, request: string.Format(bodyRequest, f.First().accountholderpersonid, documents)));
 		});
 
 
@@ -144,50 +136,69 @@ public class environment
 	public RequestSettings auth { get; set; }
 }
 
+
 public string getToken(environment env, int personId)
 	=> Util.ReadLine($"Token for person Id: {personId} - Environment: {env.name}");
 
+//	var nhv = new NativeHybridView();
+//	
+//	
+//	var _browser = new ES.Auth.WpfSample.PlatformWebBrowser(logger, () => Browser)
+//	var _backChannelHandler = new WithExtraHandler();
+//	var options = new OidcClientOptions
+//	{
+//		Authority = Settings.Authority,
+//		ClientId = Settings.ClientId,
+//		Scope = Settings.Scope,
+//		Browser = _browser,
+//		RedirectUri = Settings.RedirectUri,
+//		ClientSecret = Settings.ClientSecret,
+//		ResponseMode = OidcClientOptions.AuthorizeResponseMode.Redirect,
+//		RefreshDiscoveryDocumentForLogin = false,
+//		LoadProfile = false,
+//		FilterClaims = false,
+//		BackchannelHandler = _backChannelHandler
+//	};
+//	var _oidcClient = new OidcClient(options);
+//
+//	_oidcClient.Options.Authority = Settings.Authority;
+//	_oidcClient.Options.ClientId = Settings.ClientId;
+//	_oidcClient.Options.Scope = Settings.Scope;
+//	_oidcClient.Options.RedirectUri = Settings.RedirectUri;
+//	_oidcClient.Options.ClientSecret = Settings.ClientSecret;
+//
+//	var backChannelModel = new BackChannelModel
+//	{
+//		customerId = Settings.ParticipantId,
+//		participantId = Settings.ParticipantId,
+//		overrideRole = Settings.OverrideRole
+//	};
+//
+//	
+//	_backChannelHandler.Extra = backChannelModel;
+//	_backChannelHandler.CorrelationToken = Guid.NewGuid().ToString();
+//
+//	log("Correlation Token: {0}\n", _backChannelHandler.CorrelationToken);
+//
+//	var cookies = CookieHelper.GetCookies(new Uri(Settings.Authority));
+//	log($"\nCookies:\n{CookieHelper.FormatCookies(cookies)}\n\n");
+//	var result = _oidcClient.LoginAsync(DisplayMode.Hidden, extraParameters: backChannelModel);
+//
+//	return result.AccessToken;
+//}
 
-//app.quitcktype.io json2csharp - newtonsoft.json
-public partial class Request
-{
-	[JsonProperty("FormsToMail")]
-	public FormsToMail[] FormsToMail { get; set; }
-}
 
-public partial class FormsToMail
-{
-	[JsonProperty("HraAccountId")]
-	public long HraAccountId { get; set; }
+public string bodyRequest = @"
+//PersonId: {0}
+{{
+	""FormsToMail"": [
+	{1}
+]}}
+";
 
-	[JsonProperty("DocumentTypeId")]
-	public int DocumentTypeId { get; set; }
-
-	[JsonProperty("DocumentFormCode")]
-	public int DocumentFormCode { get; set; }
-
-	[JsonProperty("MailingAddressId")]
-	public int MailingAddressId { get; set; }
-}
-
-public partial class Request
-{
-	public static Request FromJson(string json) => JsonConvert.DeserializeObject<Request>(json, Converter.Settings);
-}
-
-public static class Serialize
-{
-	public static string ToJson(this Request self) => JsonConvert.SerializeObject(self, Converter.Settings);
-}
-
-internal static class Converter
-{
-	public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
-	{
-		MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
-		DateParseHandling = DateParseHandling.None,
-		Converters = {
-				new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
-			},
-	};
-}
+public string formRequest = @"	{{
+		""HraAccountId"":{0},
+		""DocumentTypeId"":{1},
+		""DocumentFormCode"":{2},
+		""MailingAddressId"":{3}
+	}}";
