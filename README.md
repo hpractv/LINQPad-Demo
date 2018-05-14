@@ -67,7 +67,7 @@
                     <li>Nuget Libraries</li>
                     <li>LINQ Statements</li>
                     <li>Debugging</li>
-                    <li>**NEED TO ADD** Postman</li>
+                    <li>Postman</li>
                 </ol>
         </ol>
     </div>
