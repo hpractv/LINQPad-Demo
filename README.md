@@ -26,7 +26,6 @@
 <details  open='open'>
 <summary style='font-size: 1.5em;'>Topics/Agenda</summary>
     <div>
-        <strong>Overview</strong>
         <ol>
             <li>When would you use this tool?</li>
                 <ol type='a'>
@@ -42,6 +41,18 @@
                     <li>Executable and Entity FrameWork</li>
                 </ol>
             </li>
+            <li>IDE                
+                <ul>
+                    <li>Connections</li>
+                    <li>Editor</li>
+                        <ul>
+                            <li>Dark Mode</li>
+                            <li>Line Numbers</li>
+                        </ul>
+                    <li>Customizations</li>
+                    <li>Samples/tutorials</li>
+                </ul>
+            </li>
             <li>Demos</li>
                 <ol type='a'>
                     <li>DataBase Query</li>
@@ -49,7 +60,8 @@
                             <li>SQL</li>
                             <li>Embedded SQL</li>
                             <li>Entity Framework</li>
-                            <li>Linq-To-SQL </li>
+                            <li>Linq-To-SQL</li>
+                            <li>Displays SQL that is generated and sent to the server</li>
                         </ol>
                     <li>Compiled Library</li>
                     <li>Nuget Libraries</li>
@@ -58,7 +70,6 @@
                     <li>**NEED TO ADD** Postman</li>
                 </ol>
         </ol>
-        <strong>IDE Elements</strong>
     </div>
 </details>
 <hr />
